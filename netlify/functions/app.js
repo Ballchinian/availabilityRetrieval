@@ -19,4 +19,19 @@ async function getData() {
   }
 }
 
-getData().catch(console.error);
+
+exports.handler = async (event, context) => {
+  try {
+    const data = await getData();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+    };
+  } catch (error) {
+    console.error("Error retrieving data:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Failed to retrieve data" }),
+    };
+  }
+};
