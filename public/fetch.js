@@ -7,8 +7,12 @@ async function fetchData() {
         const data = await response.json();
 
         // Display the data on the page
-        console.log(user.selectedDates);
-        console.log(user.names);
+        const dataContainer = document.getElementById('data');
+        dataContainer.innerHTML = data.map(user => `
+            <p>Name: ${user.name}</p>
+            <p>Selected Dates: ${user.selectedDates.join(', ')}</p>
+            <hr>
+        `).join('');
     } catch (error) {
         console.error('Fetch error:', error);
         document.getElementById('data').textContent = 'Failed to load data';
