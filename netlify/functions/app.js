@@ -13,7 +13,7 @@ async function getData() {
     const projection = { name: 1, selectedDates: 1, _id: 0 }; // Set _id to 0 to exclude it
     const result = await collection.find({}, { projection }).toArray();
 
-    console.log(result);
+    return result;
   } finally {
     await client.close();
   }
