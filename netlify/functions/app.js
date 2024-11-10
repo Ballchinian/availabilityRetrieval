@@ -52,5 +52,30 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({ error: "Failed to retrieve data" }),
       };
     }
+  } 
+  
+  else if (event.httpMethod === 'DELETE') {
+    // Delete user logic
+    const { userId } = JSON.parse(event.body);
+    try {
+      const success = await deleteUser(userId);
+      if (success) {
+          return {
+            statusCode: 200,
+            body: JSON.stringify({ message: "User deleted successfully" }),
+          };
+      } 
+      else {throw new Error("Failed to delete user");}
+    } catch (error) {
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ error: error.message }),
+        };
+    }
+  } else {
+    return {
+      statusCode: 405,
+      body: "Method Not Allowed",
+    };
   }
 };

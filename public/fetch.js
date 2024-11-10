@@ -7,11 +7,13 @@ async function fetchData() {
         const users = await response.json();
 
         mainInfo(users) 
-
+        
     } catch (error) {
         console.error('Fetch error:', error);
         document.getElementById('data').textContent = 'Failed to load data';
     }
 }
+
+
 
 fetchData();

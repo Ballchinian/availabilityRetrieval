@@ -8,7 +8,7 @@ function mainInfo(users) {
             }
             dateCounts[date].count++;
             dateCounts[date].firstAppearance = Math.min(dateCounts[date].firstAppearance, index);
-            dateCounts[date].users.push(user.name); // Add user's name to the list for the date
+            dateCounts[date].users.push({name:user.name, id: user._id}); // Add user's name to the list for the date
         });
     });
 
@@ -22,7 +22,12 @@ function mainInfo(users) {
     dataContainer.innerHTML = sortedDates.map(item => `
         <p><strong>Date: ${item.date}</strong></p>
         <ul>
-            ${item.users.map(user => `<li>${user}</li>`).join('')}
+            ${item.users.map(user => `
+                <li>
+                    ${user.name}
+                    <button onclick="deleteUser('${user.id}')">Delete</button>
+                </li>
+            `).join('')}
         </ul>
     `).join('');
 }
