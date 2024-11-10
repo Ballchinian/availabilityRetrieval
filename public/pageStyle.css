@@ -1,0 +1,37 @@
+/* Center the #data container on the page */
+body {
+    background-color: #051c3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+#data {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Spacing between items */
+    max-width: 80%; /* Limit width to create margins */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+#data p {
+    margin: 0;
+    font-weight: bold;
+}
+
+#data ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+#data li {
+    margin-left: 15px;
+}

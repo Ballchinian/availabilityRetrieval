@@ -20,7 +20,7 @@ function mainInfo(users) {
     // Display the sorted dates and associated users on the page
     const dataContainer = document.getElementById('data');
     dataContainer.innerHTML = sortedDates.map(item => `
-        <p><strong>Date: ${item.date} (Count: ${item.count})</strong></p>
+        <p><strong>Date: ${item.date}</strong></p>
         <ul>
             ${item.users.map(user => `<li>${user}</li>`).join('')}
         </ul>
