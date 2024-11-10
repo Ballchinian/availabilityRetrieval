@@ -24,16 +24,20 @@ async function deleteUser(userId) {
   const client = new MongoClient(uri);
 
   try {
-    await client.connect();
-    const database = client.db("myDatabase");
-    const collection = database.collection("users");
+      await client.connect();
+      const database = client.db("myDatabase");
+      const collection = database.collection("users");
 
-    // Convert userId to ObjectId (using a string directly, which is not deprecated)
-    const result = await collection.deleteOne({ _id: new ObjectId(userId.toString()) });
+      console.log("Attempting to delete user with ID:", userId); // Log userId
 
-    return result.deletedCount > 0;
+      // Convert userId to ObjectId and attempt deletion
+      const result = await collection.deleteOne({ _id: new ObjectId(userId) });
+
+      console.log("Delete result:", result); // Log delete result
+
+      return result.deletedCount > 0;
   } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error during deletion operation:", error); // Log detailed error message
       throw new Error("Failed to delete user");
   } finally {
       await client.close();
