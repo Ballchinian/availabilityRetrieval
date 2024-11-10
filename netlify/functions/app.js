@@ -19,19 +19,38 @@ async function getData() {
   }
 }
 
+async function deleteUser(userId) {
+  const uri = process.env.ATLAS_URI;
+  const client = new MongoClient(uri);
+
+  try {
+      await client.connect();
+      const database = client.db("myDatabase");
+      const collection = database.collection("users");
+
+      // Delete user by their unique ID
+      const result = await collection.deleteOne({ _id: new ObjectId(userId) });
+
+      return result.deletedCount > 0;
+  } finally {
+      await client.close();
+  }
+}
 
 exports.handler = async (event, context) => {
-  try {
-    const data = await getData();
-    return {
-      statusCode: 200,
-      body: JSON.stringify(data),
-    };
-  } catch (error) {
-    console.error("Error retrieving data:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Failed to retrieve data" }),
-    };
+  if (event.httpMethod === 'GET') {
+    try {
+      const data = await getData();
+      return {
+        statusCode: 200,
+        body: JSON.stringify(data),
+      };
+    } catch (error) {
+      console.error("Error retrieving data:", error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Failed to retrieve data" }),
+      };
+    }
   }
 };
