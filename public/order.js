@@ -8,7 +8,6 @@ function mainInfo(users) {
             }
             dateCounts[date].count++;
             dateCounts[date].firstAppearance = Math.min(dateCounts[date].firstAppearance, index);
-            dateCounts[date].users.push({name:user.name, id: user._id});
 
             const userId = user._id ? user._id.toString() : "MISSING_ID"; 
             console.log(`Processing user: ${user.name}, ID: ${userId}`);
