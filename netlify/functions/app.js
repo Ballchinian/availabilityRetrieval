@@ -65,6 +65,8 @@ exports.handler = async (event, context) => {
     // Delete user logic
     const { userId } = JSON.parse(event.body);
     console.log(userId)
+    console.log(JSON.parse(event.body))
+    console.log(event.body)
     try {
       const success = await deleteUser(userId);
       if (success) {
