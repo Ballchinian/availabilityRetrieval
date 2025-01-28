@@ -64,8 +64,9 @@ exports.handler = async (event, context) => {
   else if (event.httpMethod === 'DELETE') {
     // Delete user logic
     const { userId } = JSON.parse(event.body);
+    console.log(userId)
     try {
-      const success = await User.findByIdAndDelete(userId);
+      const success = await deleteUser(userId);
       if (success) {
           return {
             statusCode: 200,
