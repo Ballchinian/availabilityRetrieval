@@ -30,6 +30,9 @@ async function deleteUser(userId) {
 
       console.log("Attempting to delete user with ID:", userId); // Log userId
 
+      if (!ObjectId.isValid(userId)) {
+        throw new Error(`Invalid ObjectId format: ${userId}`);
+      }
       // Convert userId to ObjectId and attempt deletion
       const result = await collection.deleteOne({ _id: new ObjectId(userId) });
 
@@ -62,24 +65,33 @@ exports.handler = async (event, context) => {
   } 
   
   else if (event.httpMethod === 'DELETE') {
-    // Delete user logic
-    const { userId } = JSON.parse(event.body);
-    console.log(userId)
-    console.log(JSON.parse(event.body))
-    console.log(event.body)
+    console.log("DELETE request received:", event.body); // Log the raw body
+
     try {
-      const success = await deleteUser(userId);
-      if (success) {
-          return {
-            statusCode: 200,
-            body: JSON.stringify({ message: "User deleted successfully" }),
-          };
-      } 
-    else {throw new Error("Failed to delete user");}
+        const parsedBody = JSON.parse(event.body);
+        console.log("Parsed body:", parsedBody);
+
+        const { userId } = parsedBody;
+        console.log("Extracted userId:", userId);
+
+        if (!userId || userId === "undefined") {
+            throw new Error("Invalid userId received");
+        }
+
+        const success = await deleteUser(userId);
+        if (success) {
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ message: "User deleted successfully" }),
+            };
+        } else {
+            throw new Error("Failed to delete user");
+        }
     } catch (error) {
+        console.error("Error during deletion operation:", error);
         return {
-          statusCode: 500,
-          body: JSON.stringify({ error: error.message }),
+            statusCode: 500,
+            body: JSON.stringify({ error: error.message }),
         };
     }
   } else {
