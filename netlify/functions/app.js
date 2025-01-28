@@ -10,7 +10,7 @@ async function getData() {
     const collection = database.collection("users");
 
     // Query to retrieve only the name and selectedDates fields
-    const projection = { name: 1, selectedDates: 1, _id: 0 }; // Set _id to 0 to exclude it
+    const projection = { name: 1, selectedDates: 1, _id: 1 }; // Set _id to 0 to exclude it
     const result = await collection.find({}, { projection }).toArray();
 
     return result;
