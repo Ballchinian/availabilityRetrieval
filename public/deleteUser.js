@@ -1,7 +1,13 @@
 async function deleteUser(userId) {
+    if (!userId || userId === "undefined") {
+        console.error("Invalid userId:", userId);
+        alert("Error: User ID is undefined.");
+        return;
+    }
+
     if (!confirm("Are you sure you want to delete this user?")) return;
 
-    console.log("Deleting user with ID:", userId); // Debugging log
+    console.log("Deleting user with ID:", userId); 
 
     try {
         const response = await fetch('/.netlify/functions/app', {
@@ -10,7 +16,7 @@ async function deleteUser(userId) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({ userId })  // Ensure correct JSON format
+            body: JSON.stringify({ userId })
         });
 
         if (!response.ok) throw new Error('Failed to delete user');

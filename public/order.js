@@ -8,7 +8,8 @@ function mainInfo(users) {
             }
             dateCounts[date].count++;
             dateCounts[date].firstAppearance = Math.min(dateCounts[date].firstAppearance, index);
-            dateCounts[date].users.push({name:user.name, id: user._id}); // Add user's name to the list for the date
+            dateCounts[date].users.push({ name: user.name, id: user._id.toString() });
+
         });
     });
 
