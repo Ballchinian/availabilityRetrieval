@@ -19,6 +19,10 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+main#data {
+    opacity: 0;
+}
+
 #data p {
     margin: 0 0 5px 0;
     font-weight: bold;
@@ -54,9 +58,18 @@ body {
 
 
 #userCountFilter {
-    margin-bottom: 20px;
-    padding: 8px;
+    padding: 8px 12px;
     font-size: 16px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#userCountFilter:hover {
+    background-color: #e0e0e0;
+    border-color: #aaa;
 }
 
 .date-box {
